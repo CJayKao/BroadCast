@@ -1,0 +1,6 @@
+﻿  echo_server.cpp
+c:\users\jay\source\repos\echoser_channel\echoser_channel\websocketpp-master\websocketpp\frame.hpp(831): warning C4267: '=': 將 'size_t' 轉換為 'uint32_t'，資料可能遺失
+  Info: Boost.Config is older than your compiler version - probably nothing bad will happen - but you may wish to look for an update Boost version.  Define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE to suppress this message.
+c:\users\jay\source\repos\echoser_channel\echoser_channel\websocketpp-master\websocketpp\common\md5.hpp(367): warning C4267: '+=': 將 'size_t' 轉換為 'websocketpp::md5::md5_word_t'，資料可能遺失
+c:\users\jay\source\repos\echoser_channel\echoser_channel\websocketpp-master\websocketpp\sha1\sha1.hpp(176): warning C4267: '=': 將 'size_t' 轉換為 'unsigned int'，資料可能遺失
+  EchoSer_Channel.vcxproj -> C:\Users\Jay\source\repos\EchoSer_Channel\x64\Debug\EchoSer_Channel.exe
