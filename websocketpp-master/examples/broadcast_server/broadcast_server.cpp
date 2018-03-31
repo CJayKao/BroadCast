@@ -146,12 +146,12 @@ public:
     }
 private:
     typedef std::set<connection_hdl,std::owner_less<connection_hdl> > con_list;
-	typedef std::map<int , con_list> HubToCon_list; // string == NameOfChatroom , con_list == list of client in this room
+	typedef std::map<int , con_list> HubToCon_list; // int == NameOfChatroom , con_list == list of client in this room
 
     server m_server;
     con_list m_connections;
 	//
-	HubToCon_list m_HubTo_list ; //Establish  multiple chat romm by 
+	HubToCon_list m_HubTo_list ; // 建立一個多通道(房) 聊天
 	int m_iKey = 0;
 	int m_NumOfClient = 0;
 	//
