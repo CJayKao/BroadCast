@@ -115,23 +115,26 @@ public:
 
             if (a.type == SUBSCRIBE) {
                 lock_guard<mutex> guard(m_connection_lock);
-                m_connections.insert(a.hdl);
-				m_HubTo_list.at(0).insert(a.hdl);
+                //m_connections.insert(a.hdl);
+				if (m_NumOfClient > 2) { // 若房間大於2人
+					m_iKey = m_iKey + 1; // 開新房
+					m_NumOfClient = 0;	 // clean
+				}
+				m_HubTo_list[m_iKey].insert(a.hdl);
+				
             } else if (a.type == UNSUBSCRIBE) {
                 lock_guard<mutex> guard(m_connection_lock);
                 m_connections.erase(a.hdl);
-				//m_HubTo_list[0].erase(a.hdl);
             } else if (a.type == MESSAGE) {
                 lock_guard<mutex> guard(m_connection_lock);
 
                 //con_list::iterator it;
-				//auto it = m_HubTo_list[0].begin();
-				/*for (HubToCon_list::iterator it = m_HubTo_list.begin(); it != m_HubTo_list.end(); it++) {
-					const con_list set = it->second;
-					for (std::set<connection_hdl>::iterator getit = set.begin(); getit != set.end(); ++getit) {
+				for (HubToCon_list::iterator it = m_HubTo_list.begin(); it != m_HubTo_list.end(); it++) {
+					con_list set = it->second;
+					for (con_list::iterator getit = set.begin(); getit != set.end(); ++getit) {
 						m_server.send(*getit, a.msg);
 					}
-				}*/
+				}
 				
               /*  for (it = m_connections.begin(); it != m_connections.end(); ++it) {
                     m_server.send(*it,a.msg);
@@ -143,12 +146,14 @@ public:
     }
 private:
     typedef std::set<connection_hdl,std::owner_less<connection_hdl> > con_list;
-	typedef std::map<std::string, con_list> HubToCon_list; // int == channel  set == list
+	typedef std::map<int , con_list> HubToCon_list; // string == NameOfChatroom , con_list == list of client in this room
 
     server m_server;
     con_list m_connections;
 	//
-	HubToCon_list m_HubTo_list; //用來建立通道及通道的set
+	HubToCon_list m_HubTo_list ; //Establish  multiple chat romm by 
+	int m_iKey = 0;
+	int m_NumOfClient = 0;
 	//
     std::queue<action> m_actions;
 
